@@ -1,0 +1,39 @@
+server:
+  port: 10000
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type: TRACE
+#    com.zaxxer.hikari: DEBUG
+
+spring:
+  application:
+    name: kotlinSpring
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: spring
+    password: spring
+
+  #jpa
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    #jpa format
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  #log
+  output:
+    ansi:
+      enabled: always
+
+  devtools:
+    livereload:
+      enabled: false
