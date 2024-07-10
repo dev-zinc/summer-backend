@@ -9,7 +9,7 @@ server:
 
 discord:
   token: ${DISCORD_TOKEN}
-
+  channelId: 123123
 spring:
   application:
     name: AnifAdmin

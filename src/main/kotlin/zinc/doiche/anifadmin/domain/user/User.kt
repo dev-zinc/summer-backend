@@ -1,5 +1,6 @@
-package zinc.doiche.anifadmin.document.user
+package zinc.doiche.anifadmin.domain.user
 
+import net.dv8tion.jda.api.entities.Member
 import org.bson.types.ObjectId
 import org.springframework.boot.json.GsonJsonParser
 import org.springframework.data.mongodb.core.mapping.Document
@@ -12,6 +13,7 @@ private const val PROFILE_REQUEST_URL = "https://sessionserver.mojang.com/sessio
 @Document(collection = "user")
 class User(
     val id: ObjectId,
+    val discordId: Long,
     val uuid: UUID,
     val jobStat: JobStat,
     val wallet: Wallet,
