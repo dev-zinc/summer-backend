@@ -7,27 +7,20 @@ server:
 #    org.hibernate.type: TRACE
 #    com.zaxxer.hikari: DEBUG
 
+discord:
+  token: ${DISCORD_TOKEN}
+
 spring:
   application:
-    name: kotlinSpring
-
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: spring
-    password: spring
-
-  #jpa
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-    #jpa format
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+    name: AnifAdmin
+  data:
+    mongodb:
+      host: ${ANIF_ADMIN_HOST}
+      port: ${ANIF_ADMIN_PORT}
+      authentication-database: admin
+      database: ${ANIF_ADMIN_DATABASE}
+      username: ${ANIF_ADMIN_USERNAME}
+      password: ${ANIF_ADMIN_PASSWORD}
 
   #log
   output:

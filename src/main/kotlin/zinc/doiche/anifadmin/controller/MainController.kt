@@ -1,4 +1,4 @@
-package zinc.doiche.kotlinspring.controller
+package zinc.doiche.anifadmin.controller
 
 import io.github.oshai.kotlinlogging.KLogger
 import org.springframework.web.bind.annotation.GetMapping

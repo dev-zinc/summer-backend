@@ -1,4 +1,4 @@
-package zinc.doiche.kotlinspring.config
+package zinc.doiche.anifadmin.config
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.annotation.Bean
