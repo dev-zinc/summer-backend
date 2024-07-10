@@ -42,22 +42,21 @@ class NotificationRepository(
     }
 
     fun findAll(page: Int, size: Int): Page<Notification>? {
+        val skipSize = ((page - 1) * size).toLong()
+
         return channelId?.let { id ->
             jda.getForumChannelById(id)
         }?.let { forum ->
-            val threadChannelCache = jda.threadChannelCache
-            val count = threadChannelCache.applyStream { stream ->
-                stream.filter { it.parentChannel == forum }
-            }.count()
-
-            threadChannelCache.applyStream { stream ->
+            jda.threadChannelCache.applyStream { stream ->
                 stream.filter {
                     it.parentChannel == forum
                 }.map {
                     findByThread(it)
                 }
+                .limit(size.toLong())
+                .skip(skipSize)
             }.let { stream ->
-                PageImpl(stream.toList(), PageRequest.of(page, size), count)
+                PageImpl(stream.toList())
             }
         }
     }
