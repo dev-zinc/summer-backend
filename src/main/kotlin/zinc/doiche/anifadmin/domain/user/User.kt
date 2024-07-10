@@ -1,20 +1,18 @@
 package zinc.doiche.anifadmin.domain.user
 
-import net.dv8tion.jda.api.entities.Member
 import org.bson.types.ObjectId
 import org.springframework.boot.json.GsonJsonParser
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.web.reactive.function.client.WebClient
 import java.time.Duration
-import java.util.UUID
 
 private const val PROFILE_REQUEST_URL = "https://sessionserver.mojang.com/session/minecraft/profile/"
 
 @Document(collection = "user")
 class User(
     val id: ObjectId,
-    val discordId: Long,
-    val uuid: UUID,
+    val discordId: Long?,
+    val uuid: String,
     val jobStat: JobStat,
     val wallet: Wallet,
     val decoration: Decoration,
@@ -32,7 +30,7 @@ class User(
 
     private fun getNameByMojang(): String? {
         val webClient = WebClient.create();
-        val url = PROFILE_REQUEST_URL + uuid.toString()
+        val url = PROFILE_REQUEST_URL + uuid
 
         val json = webClient.get()
             .uri(url)
@@ -48,4 +46,10 @@ class User(
             name
         }
     }
+
+    override fun toString(): String {
+        return "User(id=$id, discordId=$discordId, uuid='$uuid', jobStat=$jobStat, wallet=$wallet, decoration=$decoration, playerPrefix=$playerPrefix, playerAutoSeed=$playerAutoSeed, playerFly=$playerFly, personalSettings=$personalSettings, grade=$grade, chatMode='$chatMode', mbti=$mbti, name=$name)"
+    }
+
+
 }

@@ -13,6 +13,7 @@ class ForumListener(private val logger: KLogger) {
 
         if (channel.type.isThread && channel.asThreadChannel().parentChannel.type == ChannelType.FORUM) {
             val threadChannel = channel.asThreadChannel()
+            val owner = threadChannel.owner
             val forum = threadChannel.parentChannel
             val title = threadChannel.name
             val tags = threadChannel.appliedTags
@@ -20,6 +21,7 @@ class ForumListener(private val logger: KLogger) {
 
             logger.info { "Forum Post Updated: $createdDateTime, $title, $tags" }
             logger.info { forum }
+            logger.info { threadChannel.ownerIdLong }
         }
     }
 }

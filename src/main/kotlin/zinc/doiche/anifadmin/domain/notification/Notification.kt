@@ -1,6 +1,5 @@
 package zinc.doiche.anifadmin.domain.notification
 
-import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel
 import zinc.doiche.anifadmin.domain.user.User
 import java.time.LocalDateTime
 
@@ -12,5 +11,7 @@ class Notification(
     private val createdDateTime: LocalDateTime,
     private val discordUrl: String,
 ) {
-
+    override fun toString(): String {
+        return "Notification(id=$id, user=$user, notificationTypes=$notificationTypes, title='$title', createdDateTime=$createdDateTime, discordUrl='$discordUrl')"
+    }
 }

@@ -13,7 +13,6 @@ class AnifAdminApplication
 
 fun main(args: Array<String>) {
     runApplication<AnifAdminApplication>(*args)
-
 }
 
 
