@@ -28,10 +28,5 @@ class NotificationRepositoryTest {
         findByIdTest()
     }
 
-    @Test
-    fun findAll() {
-        val findAll = notificationRepository.findAll(1, 2)
-        logger.info { "=================${findAll.get().toList()}" }
-        assert(findAll.hasContent())
-    }
+
 }

@@ -6,12 +6,12 @@ import java.time.LocalDateTime
 
 @Document(collection = "notification")
 class Notification(
-    private val id: Long,
-    private val user: User?,
-    private val notificationTypes: List<NotificationType>,
-    private val title: String,
-    private val createdDateTime: LocalDateTime,
-    private val discordUrl: String,
+    val id: Long,
+    val user: User?,
+    val notificationTypes: List<NotificationType>,
+    val title: String,
+    val createdDateTime: LocalDateTime,
+    val discordUrl: String,
 ) {
     override fun toString(): String {
         return "Notification(id=$id, user=$user, notificationTypes=$notificationTypes, title='$title', createdDateTime=$createdDateTime, discordUrl='$discordUrl')"

@@ -28,11 +28,17 @@ class NotificationController(
 //        return notificationService.getPage(page, size)
 //    }
 
-    @GetMapping("/{page}/{size}")
+    @GetMapping("/list/{page}/{size}")
     fun notificationPage(@PathVariable page: Int, @PathVariable size: Int): PagedModel<Notification> {
         val notificationPage = notificationService.getPage(page, size)
         val string = jacksonObjectMapper.writeValueAsString(notificationPage)
         logger.info { string }
         return notificationPage
+    }
+
+    @GetMapping("/counter")
+    fun notificationCounter(): Any {
+        val counter = notificationService.getCounter()
+        return counter
     }
 }
