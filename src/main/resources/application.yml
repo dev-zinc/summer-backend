@@ -3,13 +3,11 @@ server:
 
 #logging:
 #  level:
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type: TRACE
-#    com.zaxxer.hikari: DEBUG
+#    org:
+#      springframework: DEBUG
 
 discord:
   token: ${DISCORD_TOKEN}
-  channelName: test
 spring:
   application:
     name: AnifAdmin

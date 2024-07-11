@@ -1,5 +1,6 @@
 package zinc.doiche.anifadmin.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.github.oshai.kotlinlogging.KLogger
 import org.springframework.data.web.PagedModel
 import org.springframework.web.bind.annotation.GetMapping
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import zinc.doiche.anifadmin.domain.notification.Notification
-import zinc.doiche.anifadmin.domain.notification.NotificationType
 import zinc.doiche.anifadmin.domain.user.NotExist
 import zinc.doiche.anifadmin.service.NotificationService
 
@@ -15,7 +15,8 @@ import zinc.doiche.anifadmin.service.NotificationService
 @RequestMapping("/api/v1/notification/*")
 class NotificationController(
     private val logger: KLogger,
-    private val notificationService: NotificationService
+    private val notificationService: NotificationService,
+    private val jacksonObjectMapper: ObjectMapper
 ) {
     @GetMapping("/{id}")
     fun notification(@PathVariable id: Long): Any {
@@ -29,6 +30,9 @@ class NotificationController(
 
     @GetMapping("/{page}/{size}")
     fun notificationPage(@PathVariable page: Int, @PathVariable size: Int): PagedModel<Notification> {
-        return notificationService.getPage(page, size)
+        val notificationPage = notificationService.getPage(page, size)
+        val string = jacksonObjectMapper.writeValueAsString(notificationPage)
+        logger.info { string }
+        return notificationPage
     }
 }

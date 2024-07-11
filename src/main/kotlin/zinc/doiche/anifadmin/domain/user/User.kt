@@ -11,7 +11,7 @@ private const val PROFILE_REQUEST_URL = "https://sessionserver.mojang.com/sessio
 @Document(collection = "user")
 class User(
     val id: ObjectId,
-    val discordId: Long?,
+    var discordId: Long?,
     val uuid: String,
     val jobStat: JobStat,
     val wallet: Wallet,

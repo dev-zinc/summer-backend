@@ -1,7 +1,8 @@
 package zinc.doiche.anifadmin.service
 
-import com.google.gson.Gson
 import io.github.oshai.kotlinlogging.KLogger
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.web.PagedModel
 import org.springframework.stereotype.Service
 import zinc.doiche.anifadmin.domain.notification.Notification
@@ -13,14 +14,15 @@ class NotificationService(
     private val logger: KLogger
 ): ReadService<Notification, Long> {
     override fun get(id: Long): Notification? {
-        return notificationRepository.findById(id)
+        return notificationRepository.findById(id).orElse(null)
     }
 
     override fun getPage(page: Int, size: Int): PagedModel<Notification> {
-        val notificationPage = notificationRepository.findAll(page, size)
-        val pagedModel = PagedModel(notificationPage)
-        logger.info { Gson().toJson(notificationPage) }
-        logger.info { Gson().toJson(pagedModel) }
+        val notifications = notificationRepository.findAll(PageRequest.of(page, size))
+        val pagedModel = PagedModel(notifications)
+
+        logger.info { pagedModel.content }
+
         return pagedModel
     }
 }
