@@ -24,33 +24,28 @@ class User(
     val mbti: List<String>,
     val recentlyVotedDay: String?,
     val currentPrimaryGroup: String?,
-    val islandName: String?
+    val islandName: String?,
+    val isOnline: Boolean,
+    val name: String/* = getNameByMojang(uuid)*/
 ) {
-    val name: String
-
-    init {
-        name = getNameByMojang()
-    }
-
-    private fun getNameByMojang(): String {
-        val webClient = WebClient.create();
-        val url = PROFILE_REQUEST_URL + uuid
-        val json = webClient.get()
-            .uri(url)
-            .retrieve()
-            .bodyToMono(String::class.java)
-            .block(Duration.ofSeconds(5))
-
-        return json?.let {
-            GsonJsonParser().parseMap(it)
-        }?.let {
-            it["name"] as? String
-        } ?: "Unknown"
-    }
 
     override fun toString(): String {
         return "User(id=$id, discordId=$discordId, uuid='$uuid', jobStat=$jobStat, wallet=$wallet, decoration=$decoration, playerPrefix=$playerPrefix, playerAutoSeed=$playerAutoSeed, playerFly=$playerFly, personalSettings=$personalSettings, grade=$grade, mbti=$mbti, recentlyVotedDay=$recentlyVotedDay, currentPrimaryGroup=$currentPrimaryGroup, islandName=$islandName, name='$name')"
     }
+}
 
+private fun getNameByMojang(uuid: String): String {
+    val webClient = WebClient.create();
+    val url = PROFILE_REQUEST_URL + uuid
+    val json = webClient.get()
+        .uri(url)
+        .retrieve()
+        .bodyToMono(String::class.java)
+        .block(Duration.ofSeconds(5))
 
+    return json?.let {
+        GsonJsonParser().parseMap(it)
+    }?.let {
+        it["name"] as? String
+    } ?: "Unknown"
 }

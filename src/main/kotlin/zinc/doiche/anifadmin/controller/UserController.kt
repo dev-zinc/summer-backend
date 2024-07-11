@@ -26,6 +26,11 @@ class UserController(
     fun userPage(@PathVariable page: Int, @PathVariable size: Int): PagedModel<User> {
         return userService.getPage(page, size)
     }
+
+    @GetMapping("/list")
+    fun userList(): List<User> {
+        return userService.getList()
+    }
 //
 //    @PutMapping("/put/{uuid}/{discordId}")
 //    fun putDiscordId(@PathVariable uuid: String, @PathVariable discordId: Long): Any {

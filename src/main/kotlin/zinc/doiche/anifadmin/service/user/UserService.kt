@@ -34,4 +34,8 @@ class UserService(
             }
         } ?: NotExist("User", "존재하지 않는 유저입니다.")
     }
+
+    fun getList():List<User> {
+        return userRepository.findAll()
+    }
 }

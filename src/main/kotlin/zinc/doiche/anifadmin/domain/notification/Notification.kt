@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 class Notification(
     val id: Long,
     val user: User?,
-    val notificationTypes: List<NotificationType>,
+    val notificationTypes: MutableList<NotificationType>,
     val title: String,
     val createdDateTime: LocalDateTime,
     val discordUrl: String,
