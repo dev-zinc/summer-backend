@@ -1,1 +1,1 @@
-rootProject.name = "kotlinSpring"
+rootProject.name = "AnifAdmin"

@@ -45,15 +45,4 @@ class ForumListener(
             notificationRepository.save(notification)
         }
     }
-
-    @SubscribeEvent
-    fun onForumPostTagUpdate(event: ForumTagAddEvent) {
-        val channel = event.channel
-        val notification = notificationRepository.findById(channel.idLong).orElse(null) ?: return
-        val tag = event.tag
-        val type = NotificationType.fromForumTag(tag)
-
-        notification.notificationTypes.add(type)
-        notificationRepository.save(notification)
-    }
 }
