@@ -24,6 +24,10 @@ class NotificationService(
         return pagedModel
     }
 
+    fun getList(): List<Notification> {
+        return notificationRepository.findAll()
+    }
+
     fun getCounter(): Map<String, Int> {
         val notifications = notificationRepository.findAll()
         val counter = NotificationType.entries.associate { type ->

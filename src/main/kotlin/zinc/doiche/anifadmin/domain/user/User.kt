@@ -21,17 +21,20 @@ class User(
     val playerFly: PlayerFly,
     val personalSettings: PersonalSettings,
     val grade: Grade,
-    val chatMode: String,
-    val mbti: List<String>
+    val mbti: List<String>,
+    val recentlyVotedDay: String?,
+    val currentPrimaryGroup: String?,
+    val islandName: String?
 ) {
-    private var name: String? = null
-        private set
-        get() = field ?: getNameByMojang()
+    val name: String
 
-    private fun getNameByMojang(): String? {
+    init {
+        name = getNameByMojang()
+    }
+
+    private fun getNameByMojang(): String {
         val webClient = WebClient.create();
         val url = PROFILE_REQUEST_URL + uuid
-
         val json = webClient.get()
             .uri(url)
             .retrieve()
@@ -41,14 +44,12 @@ class User(
         return json?.let {
             GsonJsonParser().parseMap(it)
         }?.let {
-            val name = it["name"] as? String
-            this.name = name
-            name
-        }
+            it["name"] as? String
+        } ?: "Unknown"
     }
 
     override fun toString(): String {
-        return "User(id=$id, discordId=$discordId, uuid='$uuid', jobStat=$jobStat, wallet=$wallet, decoration=$decoration, playerPrefix=$playerPrefix, playerAutoSeed=$playerAutoSeed, playerFly=$playerFly, personalSettings=$personalSettings, grade=$grade, chatMode='$chatMode', mbti=$mbti, name=$name)"
+        return "User(id=$id, discordId=$discordId, uuid='$uuid', jobStat=$jobStat, wallet=$wallet, decoration=$decoration, playerPrefix=$playerPrefix, playerAutoSeed=$playerAutoSeed, playerFly=$playerFly, personalSettings=$personalSettings, grade=$grade, mbti=$mbti, recentlyVotedDay=$recentlyVotedDay, currentPrimaryGroup=$currentPrimaryGroup, islandName=$islandName, name='$name')"
     }
 
 
